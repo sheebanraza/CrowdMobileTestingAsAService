@@ -27,11 +27,22 @@ public class Application {
     @OneToOne
     private Status status;
 
+    @OneToOne
+    private Billing billing;
+
     @Column
     private Date startDate;
 
     @Column
     private Date endDate;
+
+    public Billing getBilling() {
+        return billing;
+    }
+
+    public void setBilling(Billing billing) {
+        this.billing = billing;
+    }
 
     public Integer getApplicationId() {
         return applicationId;
@@ -100,6 +111,7 @@ public class Application {
                 ", currentVersion='" + currentVersion + '\'' +
                 ", applicationProvider=" + applicationProvider +
                 ", status=" + status +
+                ", billing=" + billing +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 '}';
