@@ -14,7 +14,6 @@ public class Application {
     @GeneratedValue
     private Integer applicationId;
 
-    @Column
     @OneToOne
     private Category category;
 

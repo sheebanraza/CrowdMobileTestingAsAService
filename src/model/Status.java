@@ -19,7 +19,7 @@ public class Status {
     @Column
     private String status;
 
-    private Status() {   //for Hibernate Uncle :(
+    public Status() {   //for Hibernate Uncle :(
     }
 
     public Integer getStatusId() {
