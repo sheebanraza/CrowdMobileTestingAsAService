@@ -19,7 +19,7 @@ public class Role {
     @Column
     String roleName;
 
-    private Role() {  // for Hibernate Uncle :(
+    public Role() {  // for Hibernate Uncle :(
     }
 
     public Integer getRoleId() {
