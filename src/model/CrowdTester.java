@@ -25,7 +25,7 @@ public class CrowdTester {
     @OneToOne
     private Application application;
 
-    private CrowdTester() {
+    public CrowdTester() {
     }
 
     public Integer getTesterId() {
