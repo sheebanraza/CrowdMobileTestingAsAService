@@ -31,20 +31,19 @@ public class User {
     @Column
     private String phoneNumber;
 
-    @OneToOne
-    private Role role;
+    @Column
+    private String role;
 
     private User() {
     }
 
-    public User(String userName, String password, String firstName, String lastName, String emailId, String phoneNumber, Role role) {
+    public User(String userName, String password, String firstName, String lastName, String emailId, String phoneNumber) {
         this.userName = userName;
         this.password = password;
         FirstName = firstName;
         this.lastName = lastName;
         this.emailId = emailId;
         this.phoneNumber = phoneNumber;
-        this.role = role;
     }
 
     public Integer getUserId() {
@@ -103,11 +102,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
