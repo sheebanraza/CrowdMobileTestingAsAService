@@ -1,14 +1,13 @@
 package controller;
 
-import com.sun.deploy.net.HttpResponse;
-import dao.MobileCrowdTestingDAO;
-import model.CrowdTester;
-import model.Role;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import model.User;
+import org.hibernate.annotations.Immutable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +15,10 @@ import service.MobileCrowdTestingService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Sheeban on 11/6/2015.
@@ -28,7 +31,7 @@ public class MobileCrowdTestingController {
     private MobileCrowdTestingService mobileCrowdTestingService;
 
     @RequestMapping(value = "/registerUser/MobileCrowdTesting.htm")
-    public ModelAndView checkUser(@ModelAttribute (value = "user") User user,
+    public ModelAndView registerUser(@ModelAttribute (value = "user") User user,
                                   HttpServletRequest httpServletRequest, HttpServletResponse httpResponse) {
 
         ModelAndView modelAndView = new ModelAndView();
@@ -40,21 +43,42 @@ public class MobileCrowdTestingController {
         String type = httpServletRequest.getParameter("userType");
         String userName= httpServletRequest.getParameter("userName");
 
-        Role role = new Role();
-        user = new User(userName,password,firstName,lastName,email,phone,role);
-        if(type.equals("tester")){
-            role.setRoleName(type);
-            CrowdTester crowdTester  = new CrowdTester();
-            crowdTester.setUser(user);
-        }else if(type.equals("provider")) {
-            role.setRoleName(type);
+        user = new User(userName,password,firstName,lastName,email,phone);
+        if(type.equals("T")){
+            user.setRole(type);
+        }else if(type.equals("A")) {
+            user.setRole(type);
         }else {
-            role.setRoleName(type);
+            user.setRole(type);
         }
 
         mobileCrowdTestingService.createUser(user);
 
         return modelAndView;
     }
+
+    @RequestMapping(value = "/checkUser/MobileCrowdTesting.htm")
+    public ModelAndView checkUser(@ModelAttribute (value = "user") User user,
+                                  HttpServletRequest httpServletRequest, HttpServletResponse httpResponse) {
+        ModelAndView modelAndView = new ModelAndView();
+        String userEmail = httpServletRequest.getParameter("userName");
+        String password = httpServletRequest.getParameter("password");
+        Map<String,String> userEmailVsPassword = mobileCrowdTestingService.userNameVsPassword();
+        if(!Iterables.contains(ImmutableList.of(userEmailVsPassword.keySet()),user)){
+            String u = "User does not exists";
+        }else{
+            if(password.equals(userEmailVsPassword.get(userEmail))){
+                //modelAndView.setView();
+                System.out.print("In.....");
+            }else {
+                String u = "Pass Wrong";
+            }
+        }
+
+        return modelAndView;
+
+    }
+
+
 
 }
