@@ -14,6 +14,9 @@ public class Application {
     @GeneratedValue
     private Integer applicationId;
 
+    @Column
+    private String applicationName;
+
     @OneToOne
     private Category category;
 
@@ -34,6 +37,25 @@ public class Application {
 
     @Column
     private Date endDate;
+
+    @Column
+    private String description;
+
+    public String getApplicationName() {
+        return applicationName;
+    }
+
+    public void setApplicationName(String applicationName) {
+        this.applicationName = applicationName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Billing getBilling() {
         return billing;
@@ -113,6 +135,7 @@ public class Application {
                 ", billing=" + billing +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

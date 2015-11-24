@@ -1,6 +1,6 @@
 package model;
 
-import javax.lang.model.type.IntersectionType;
+
 import javax.persistence.*;
 import java.util.List;
 
