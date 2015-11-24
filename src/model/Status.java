@@ -22,6 +22,10 @@ public class Status {
     public Status() {   //for Hibernate Uncle :(
     }
 
+    public Status(String status) {
+        this.status = status;
+    }
+
     public Integer getStatusId() {
         return statusId;
     }
